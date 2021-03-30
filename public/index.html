@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+        <title>MiniChat</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    </head>
+    <body class="container">
+        <h1 class="mt-5">MiniChat</h1>
+        <hr>
+        <form id="miFormulario">
+            <div class="row">
+                <div class="col-8">
+                  <input type="text" id="txtMensaje" placeholder="Mensaje" class="form-control">
+                </div>
+                <div class="col-4">
+                  <button class="btn-primary">
+                      Enviar
+                  </button>
+
+                </div>
+
+
+            </div>
+
+        </form>
+
+        <div class="row">
+            <div class="col">
+             <ul id="misMensajes" class="mt-2">
+                 <li>Hola</li>
+                 <li>Mundo</li>
+                 <li>Luis Cel</li>
+             </ul>
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js" integrity="sha512-74AKPNm8Tfd5E9c4otg7XNkIVfIe5ynON7wehpX/9Tv5VYcZvXZBAlcgOAjLHg6HeWyLujisAnle6+iKnyWd9Q==" crossorigin="anonymous"></script>
+        <script>
+            const socket =io('http://localhost:8080');
+            //Referencias elementos del DOM
+            const formulario = document.querySelector('#miFormulario');
+            const mensajes = document.querySelector('#misMensajes');
+            const txtMensaje = document.querySelector('#txtMensaje');
+
+            formulario.addEventListener('submit',(ev)=>{
+                ev.preventDefault();
+                const nuevoMensaje = txtMensaje.value;
+                //console.log(nuevoMensaje);
+                socket.emit('mensaje-to-server',{text:nuevoMensaje})
+            });
+
+            socket.on('mensaje-to-cliente',(data)=>{
+                console.log(data);
+            });
+
+           // socket.on('mensaje-bienvenida',(data)=>{
+            //    console.log(data); 
+           // });
+
+            setTimeout(()=>{
+              socket.emit('mensaje-cliente',{msg:'cliente',nombre:'Luis Cel'});
+
+            },2000);
+        </script>
+
+
+    </body>
+</html>
