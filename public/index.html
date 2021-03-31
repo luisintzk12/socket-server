@@ -16,7 +16,7 @@
                   <input type="text" id="txtMensaje" placeholder="Mensaje" class="form-control">
                 </div>
                 <div class="col-4">
-                  <button class="btn-primary">
+                  <button type = "submit" class="btn btn-primary">
                       Enviar
                   </button>
 
@@ -30,9 +30,7 @@
         <div class="row">
             <div class="col">
              <ul id="misMensajes" class="mt-2">
-                 <li>Hola</li>
-                 <li>Mundo</li>
-                 <li>Luis Cel</li>
+              
              </ul>
             </div>
 
@@ -58,8 +56,8 @@
                 socket.emit('mensaje-to-server',{text:nuevoMensaje})
             });
 
-            socket.on('mensaje-to-cliente',(data)=>{
-                console.log(data);
+            socket.on('mensaje-from-server',(data)=>{
+                mensajes.innerHTML += '<li>${data.text}</li>';
             });
 
            // socket.on('mensaje-bienvenida',(data)=>{
