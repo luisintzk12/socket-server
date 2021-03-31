@@ -57,17 +57,17 @@
             });
 
             socket.on('mensaje-from-server',(data)=>{
-                mensajes.innerHTML += '<li>${data.text}</li>';
+                mensajes.innerHTML += `<li>${data.text}</li>`;
             });
 
            // socket.on('mensaje-bienvenida',(data)=>{
             //    console.log(data); 
            // });
 
-            setTimeout(()=>{
-              socket.emit('mensaje-cliente',{msg:'cliente',nombre:'Luis Cel'});
+           // setTimeout(()=>{
+              //socket.emit('mensaje-cliente',{msg:'cliente',nombre:'Luis Cel'});
 
-            },2000);
+           // },2000);
         </script>
 
 
